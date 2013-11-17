@@ -54,3 +54,14 @@ grepをパターンマッチでつくる(たのしいruby P52)
 vagrant@rails-dev-box:~/ruby$ ./006_simple_grep.rb haga read_text.txt 
 hoge fuga haga
 ```
+===
+
+## tmp_regexp.rb
+正規表現オブジェクトテスト
+```
+vagrant@rails-dev-box:~/ruby$ ./tmp_regexp.rb 
+text
+vagrant@rails-dev-box:~/ruby$ vi tmp_regexp.rb 
+vagrant@rails-dev-box:~/ruby$ ./tmp_regexp.rb 
+no
+```
