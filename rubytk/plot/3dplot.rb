@@ -1,7 +1,8 @@
 require 'tkextlib/tcllib/plotchart'
 include Tk::Tcllib::Plotchart
  
-[[:yellow,:red],[:green,:darkgreen],[:magenta,:blue]].each{|c|
+#[[:yellow,:red],[:green,:darkgreen],[:magenta,:blue]].each{|c|
+[[:yellow,:red],[:green,:darkgreen]].each{|c|
 s = Plot3D.new([0, 10, 3], [-10, 10, 10], [0, 7.5, 2.5],width:500,height:400){
   title "3D Plot"
   grid_size(80,80)
