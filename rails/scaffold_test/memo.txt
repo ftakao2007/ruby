@@ -1,1 +1,0 @@
-http://scaffoldtest-ftakao2007.herokuapp.com/friends
