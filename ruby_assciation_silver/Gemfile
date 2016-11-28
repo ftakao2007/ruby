@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+source "https://rubygems.org"
+
+### custom
+gem 'rb-readline'
+
+### pry
+gem 'pry-rails'
+gem 'pry-doc'
+#gem 'pry-byebug'
+gem 'pry-stack_explorer'
+
+### Rubymine debug
+gem 'debase', '0.2.2.beta8'
+gem 'ruby-debug-ide', '0.6.1.beta2'
