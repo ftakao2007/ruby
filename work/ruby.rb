@@ -56,3 +56,64 @@ object1 = Foo.new
 # p object1
 # p object1.instance_variable_get(:@qux)
 
+# オブジェクトが持つメソッドの確認
+class PatentClass
+  def super_public_method
+  end
+
+  private
+
+  def super_private_method
+  end
+
+  protected
+
+  def super_protected_method
+  end
+end
+
+class ChildClass < PatentClass
+
+  def public_method
+  end
+
+  private
+
+  def private_method
+  end
+
+  protected
+
+  def protected_method
+  end
+end
+
+child = ChildClass.new
+
+def child.singleton_method
+end
+
+### メソッドの一覧表示
+# child.methods.each do |v|
+#   p v
+# end
+
+### publicメソッドの表示
+# child.public_methods.each do |v|
+#   p v
+# end
+
+### privateメソッドの表示
+# child.private_methods.each do |v|
+#   p v
+# end
+
+### protectedメソッドの表示
+# child.protected_methods.each do |v|
+#   p v
+# end
+
+### protectedメソッドの表示
+child.singleton_methods.each do |v|
+  p v
+end
