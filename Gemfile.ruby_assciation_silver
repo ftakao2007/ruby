@@ -8,7 +8,7 @@ gem 'rb-readline'
 gem 'pry-rails'
 gem 'pry-doc'
 #gem 'pry-byebug'
-gem 'pry-stack_explorer'
+#gem 'pry-stack_explorer'
 
 ### Rubymine debug
 gem 'debase', '0.2.2.beta8'
