@@ -8,6 +8,9 @@ class Foo
     @bar = 2
     @baz = 3
   end
+
+  def sample_method
+  end
 end
 
 object1 = Foo.new
@@ -57,22 +60,25 @@ object1 = Foo.new
 # p object1.instance_variable_get(:@qux)
 
 # オブジェクトが持つメソッドの確認
-class PatentClass
+class ParentClass
   def super_public_method
+    'super_public_method'
   end
 
   private
 
   def super_private_method
+    'super_private_method'
   end
 
   protected
 
   def super_protected_method
+    'super_protected_method'
   end
 end
 
-class ChildClass < PatentClass
+class ChildClass < ParentClass
 
   def public_method
   end
@@ -113,7 +119,86 @@ end
 #   p v
 # end
 
-### protectedメソッドの表示
-child.singleton_methods.each do |v|
-  p v
+### singletonメソッドの表示
+# child.singleton_methods.each do |v|
+#   p v
+# end
+
+### 引数にfalseを渡すとsingletonメソッドのみ表示
+# p child.methods(false)
+
+# (以下今の段階では飛ばし)
+
+# オブジェクトにメソッドが定義されているかを確認する
+
+# has_method = ParentClass.new
+# ### super_public_methodがあるのでtrue
+# p has_method.respond_to?(:super_public_method)
+#
+# ### privateのメソッドはデフォルトではfalse
+# p has_method.respond_to?(:super_private_method)
+#
+# ### 第二引数をtrueにするとprivate_methodも確認できるようになる
+# p has_method.respond_to?(:super_private_method, true)
+
+# (以下今の段階では飛ばし)
+
+# Object#sendで任意のメソッドを呼び出す
+
+### protectedやprivateメソッドも呼び出せる
+# send_method = ParentClass.new
+# p send_method.send(:super_public_method)
+# p send_method.send(:super_protected_method)
+# p send_method.send(:super_private_method)
+
+### ライブラリを作るときはライブラリ使用者側でsendがオーバーライドされている可能性を考慮して__send__を使う
+# p send_method.__send__(:super_public_method)
+
+# ----------------------- #
+# クラスについて調べる
+
+module FooModule
+  MODULE_CONST_VAR = 1
 end
+
+class FooClassValiables
+
+  include FooModule
+  CLASS_CONST_VAR = 2
+  @@class_val = "fooclassval"
+
+  class InnerFooClassValiables
+    INNER_CLASS_CONST_VAR = 3
+  end
+
+  def def_lazy_class_val
+    @@lazy_class_val = "foolazyclassval"
+  end
+end
+
+### 呼び出し時点で定義されているクラス変数の一覧を表示
+# p FooClassValiables.class_variables
+
+### lazy_class_valを定義して呼び出し
+# FooClassValiables.new.def_lazy_class_val
+# p FooClassValiables.class_variables
+
+### クラス変数が定義されているか直接問い合わせる
+# p FooClassValiables.class_variable_defined?('@@class_val')
+
+### クラス変数の値を取得
+# p FooClassValiables.class_variable_get('@@class_val')
+
+### クラス変数に値を設定
+# FooClassValiables.class_variable_set('@@class_val', 'hoge')
+# p FooClassValiables.class_variable_get('@@class_val')
+
+### 定数の一覧取得
+# p FooClassValiables.constants
+
+# 第二引数をfalseにすると継承したクラスやincludeしたモジュールの定数は表示されない
+# p FooClassValiables.constants(false)
+
+# innerクラスの定数のみ表示
+# p FooClassValiables::InnerFooClassValiables.constants
+
