@@ -1,4 +1,13 @@
 # ================================================ #
+# 識別子
+### クラス名や変数名などを構成するもの。全ての文法の基盤
+### 予約語は識別子として利用できない
+### nil, true, false, not, or, and, do, then, yield, rescure, unsure,
+### class, module, def, undef, define?, alias, super, self, return,
+### while, until, for, in, break, next, case, when, if, unless, else, elsif
+### BEGIN, END, begin, end, redo, retry, __LINE__, __FILE__, __ENCODING__
+
+# ================================================ #
 # 変数
 ### rubyは変数の初期化時に変数の方を指定しない「動的型言語」
 # a = 1
@@ -6,6 +15,14 @@
 # p a.class
 # a = "foo"
 # p a.class
+
+# ローカル変数
+### ローカル変数の識別子 : アンダースコアと英数字
+###
+### 先頭に数字は利用できない
+### アンダースコア以外の記号は使えない
+### ダメな例 : hoge-1, initialized?, 1_to_10
+
 
 # ================================================ #
 # 定数
