@@ -143,6 +143,72 @@
 # p true.class
 ### falseとnil以外のオブジェクトはすべて真とみなされる
 
+# 論理演算子
+### && : 論理積(かつ)
+### || : 論理和(または)
+### !  : 否定(でない)
+# if true && true;    p "ok01"; end #=> "ok01"
+# if true && false;   p "ok02"; end #=>
+# if false && true;   p "ok03"; end #=>
+# if false && false;  p "ok04"; end #=>
+#
+# if true || true;    p "ok05"; end #=> "ok05"
+# if true || false;   p "ok06"; end #=> "ok06"
+# if false || true;   p "ok07"; end #=> "ok07"
+# if false || false;  p "ok08"; end #=>
+#
+# if !true;           p "ok09"; end #=>
+# if true && !false;  p "ok10"; end #=> "ok10"
+#
+# if true && nil;     p "ok11"; end #=>
+
+### 左辺で結果が確定する場合は右辺を評価しない
+# if true || false && false;    p "ok12"; end #=> "ok12" ### 最初のtrueで確定している
+# if true && true  || false;    p "ok13"; end #=> "ok13" ### 真ん中のtrueで確定している
+# if true && true  && false;    p "ok14"; end #=>        ### 最後のfalseで確定している
+#
+# p nil   && false     #=> nil
+# p false && nil       #=> false
+# p nil   || false     #=> false
+# p false || nil       #=> nil
+
+### 論理演算子を利用した式の評価
+# p a = 1     && 2     #=> 2     ### trueが確定する右辺でその値の2が返る
+# p a                  #=> 2
+# p b = nil   && 3     #=> nil   ### 左辺でnilが確定するので右辺の3は評価されない
+# p c = 4     && nil   #=> nil
+# p d = 5     && false #=> false
+# p e = false && 6     #=> false
+#
+# p f = 7     || 8     #=> 7     ### 左辺でtrueが確定するのでその値の7が返る
+# p f                  #=> 7
+# p g = nil   || 9     #=> 9     ### trueが確定する右辺でその値の9が返る
+# p g                  #=> 9
+
+### 論理演算子の自己代入
+### 最後に評価したオペランドの値を返すことを利用した変数のデフォルト値の設定
+# p a b           #=> NameError
+# p a = a || 1    #=> 1   ### aが初期化されていないときに1を代入
+# p b ||= 2       #=> 2   ### bが初期化されていないときに2を代入
+#
+# c = 3
+# p c &&= 4         #=> 4   ### cが初期化(値は3)されているので4を代入
+# p d &&= 5         #=> nil ### dが初期化されていないのでnilが入る
+
+### 特徴的な論理演算子
+### and, or, not
+### &&や||や!との違い
+### 自己代入できない
+# p a or= 1        #=> SyntaxEror
+
+### 代入演算子よりも演算子の優先度が低い
+# p a = 1 &&  2      #=> 2   ### p (1 and 2)   と同じ。論理積の結果がpに渡される
+# p b = 1 and 2      #=> 1   ### p (1) and 2   と同じ。
+# p c = (1 and 2)    #=> 2   ### p 1 && 2      と同じ。
+# p d = 3 and nil    #=> 3   ### p (1) and nil と同じ。
+
+
+
 # 条件分岐
 ### if <条件式> then
 ### end
