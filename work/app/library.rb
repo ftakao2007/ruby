@@ -137,17 +137,69 @@
 ### Array#to_csvで配列をCSV形式の文字列に変換できる
 ### String#parse_csvでレシーバの文字列をCSV形式の1行としてparseした結果を返す
 
+# require 'csv'
+# ### 配列をcsvに変換
+# p csv = ["すだち", "うどん", "みかん", "かつお"].to_csv
+#
+# ### csvを配列に変換
+# p csv.parse_csv
+#
+# ### フィールドはダブルクオートで囲んでも囲まなくても処理できる
+# p %(foo,"bar",baz).parse_csv
+#
+# ### 明示的にダブルクオートを含めたい場合はダブルクオートでエスケープし、かつフィールド全体をダブルクオートで囲む
+# p %("徳島:""すだち""","香川:""うどん""").parse_csv
+
+## 複数行のCSVをparse
+### CSV.new
+### -> CSVの文字列を渡すとCSVオブジェクトを得ることができる
+### -> Enumerableモジュールをインクルードしており、行を要素とした配列、すなわち二次元配列のように扱える
+### -> 行を表す要素はデフォルトでは各フィールドを要素とする配列
+###
+
+# require 'csv'
+#
+# csv = CSV.new(<<EOF)
+# foo,bar,baz
+# hoge,fuga,haga
+# EOF
+#
+# p csv
+#
+# csv.each do |row|
+#   p row
+#   #puts row.join("|")
+# end
+# print "\n"
+
+### CSV.parse
+### ブロックを受け取ると各業をブロック引数として順番に実行する
+
+# require 'csv'
+#
+# data = <<EOF
+# foo,bar,baz
+# hoge,fuga,haga
+# EOF
+#
+# p data
+#
+# CSV.parse(data) do |row|
+#   p row
+#   #puts row
+#   #puts row.join("|")
+# end
+
+### 第二引数にハッシュでオプションを渡すことができる
+### :col_sep フィールド(列)間のセパレータとして使用する文字列。デフォルトはカンマ
+### :row_sep レコード(行)のセパレータとして使用する文字列。デフォルトは:auto という値
+###          -> \n または \r\n がセパレータとして利用される
+### :quote_char フィールドを囲む文字。デフォルトはダブルクオート
+### :encoding エンコーディングの指定。
+###           -> NONE(n or N)、EUC(e or E)、SJIS(s or S)、UTF-8(u or U)
+### :converters フィールドのオブジェクトを変換したい場合にProcオブジェクトかシンボルを指定
+### :unconverted_fields trueにするとCSVをparseした結果のArrayやCSV::Rowにunconverted_fieldsメソッドが追加される
+###                     -> 変換前の行を配列で得られる
+### :headers 
+
 require 'csv'
-### 配列をcsvに変換
-p csv = ["すだち", "うどん", "みかん", "かつお"].to_csv
-
-### csvを配列に変換
-p csv.parse_csv
-
-### フィールドはダブルクオートで囲んでも囲まなくても処理できる
-p %(foo,"bar",baz).parse_csv
-
-### 明示的にダブルクオートを含めたい場合はダブルクオートでエスケープし、かつフィールド全体をダブルクオートで囲む
-p %("徳島:""すだち""","香川:""うどん""").parse_csv
-
-### (以下今の段階では省略)
