@@ -200,6 +200,11 @@
 ### :converters フィールドのオブジェクトを変換したい場合にProcオブジェクトかシンボルを指定
 ### :unconverted_fields trueにするとCSVをparseした結果のArrayやCSV::Rowにunconverted_fieldsメソッドが追加される
 ###                     -> 変換前の行を配列で得られる
-### :headers 
+### :headers trueまたは:first_rowを指定すると1行目をヘッダとみなす。あるいはヘッダを配列で指定できる
+### :return_headers trueにするとヘッダとみなした1行目もCSVとして読み込む
+### :header_converters ヘッダ専用のコンバータをProcオプションまたはシンボルで指定
+### :skip_blanks trueにすると空行を読み飛ばす
+### :force_quotes trueにするとフィールド生成時に必ずクォートする
+### :write_headers trueかつheadersに値がある場合ヘッダを出力するようになる
 
 require 'csv'
