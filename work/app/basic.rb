@@ -584,8 +584,15 @@
 # bar="bar"
 # p %W(abc def #{foo})              #=> ["abc", "def", "foo"]
 # p %w(ghi jkl #{bar})              #=> ["ghi", "jkl", "\#{bar}"]
-# p %W(abc def #{foo}).join("&")      #=> "abc&def&foo"
+# p %W(abc def #{foo}).join("&")    #=> "abc&def&foo"
 
+### サイズを超えた要素への代入
+### 配列のサイズは要素への代入によって動的に変わる
+### 上限を超えた場合はnilを返す
+p v1 = ["hoge"]                  #=> ["hoge"]
+v1[3] = "fuga"
+p v1                             #=> ["hoge", nil, nil, "fuga"]
+p v1[9]                          #=> nil
 
 # ================================================ #
 # メソッド(関数)
