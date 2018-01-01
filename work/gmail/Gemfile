@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# gem "rails"
+gem "google-api-client"
+gem 'debase', '0.2.2.beta8'
+#gem 'ruby-debug-ide', '0.6.1.beta2'
+gem 'ruby-debug-ide', '0.6.1.beta9'

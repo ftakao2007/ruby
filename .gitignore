@@ -3,3 +3,4 @@ bundle/
 .idea/
 .bundle
 *lock
+work/gmail/*json
